@@ -48,6 +48,18 @@ static void pin_client_version(const char* gamedir) {
     if (f != INVALID_HANDLE_VALUE) { DWORD w; WriteFile(f, out, o, &w, nullptr); CloseHandle(f); }
 }
 
+static void inject_dll(HANDLE proc, const char* dllpath) {
+    SIZE_T len = strlen(dllpath) + 1;
+    void* rem = VirtualAllocEx(proc, nullptr, len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+    if (!rem) return;
+    if (WriteProcessMemory(proc, rem, dllpath, len, nullptr)) {
+        auto pLoad = (LPTHREAD_START_ROUTINE)GetProcAddress(GetModuleHandleA("kernel32.dll"), "LoadLibraryA");
+        HANDLE th = CreateRemoteThread(proc, nullptr, 0, pLoad, rem, 0, nullptr);
+        if (th) { WaitForSingleObject(th, 5000); CloseHandle(th); }
+    }
+    VirtualFreeEx(proc, rem, 0, MEM_RELEASE);
+}
+
 int main() {
     LPSTR cmd = skip_token(GetCommandLineA());
     if (!*cmd) {
@@ -77,6 +89,15 @@ int main() {
                     "inventory_fix", MB_ICONERROR);
         return 1;
     }
+
+    char self[MAX_PATH * 2]; GetModuleFileNameA(nullptr, self, sizeof(self));
+    if (char* s = strrchr(self, '\\')) {
+        lstrcpynA(s + 1, "inventory_fix.dll", (int)(sizeof(self) - (s + 1 - self)));
+        if (GetFileAttributesA(self) != INVALID_FILE_ATTRIBUTES) {
+            inject_dll(pi.hProcess, self);
+        }
+    }
+
     WaitForSingleObject(pi.hProcess, INFINITE);
     CloseHandle(pi.hThread);
     CloseHandle(pi.hProcess);
