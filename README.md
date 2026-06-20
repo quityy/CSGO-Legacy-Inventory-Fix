@@ -26,9 +26,9 @@
 
 6. launch the game from steam like normal.
 
-## adding game args
+## adding lauch options
 
-put any extra csgo args after `%command%`, like this:
+put any extra csgo launch options after `%command%`, like this:
 
 ```txt
 "C:\sweepnation_tools\inventory_fix.exe" %command% -insecure -novid
