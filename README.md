@@ -1,32 +1,34 @@
 # inventory fix
 
-simple steam launch wrapper for csgo legacy inventory.
+fix yo inventory!
 
 ## how to use
 
-1. build it from `main.cpp` or grab the precompiled exe here:
+1. build it from `build.bat` or grab the precompiled exe and dll here:
 
    https://github.com/quityy/cs-go-legacy-inventory-fix/raw/refs/heads/main/inventory_fix.exe
+   https://github.com/quityy/cs-go-legacy-inventory-fix/raw/refs/heads/main/inventory_fix.dll
 
-2. put the exe somewhere easy to find, like:
+3. put the exe and dll somewhere easy to find and in the same directory, like:
 
    ```txt
    C:\sweepnation_tools\inventory_fix.exe
+   C:\sweepnation_tools\inventory_fix.dll
    ```
 
-3. open steam and go to:
+4. open steam and go to:
 
    ```txt
    csgo legacy > properties > launch options
    ```
 
-4. set the launch options to:
+5. set the launch options to:
 
    ```txt
    "C:\sweepnation_tools\inventory_fix.exe" %command%
    ```
 
-5. launch the game from steam like normal.
+6. launch the game from steam like normal.
 
 ## adding game args
 
