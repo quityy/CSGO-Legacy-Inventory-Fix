@@ -1,7 +1,3 @@
-# inventory fix
-
-fix yo inventory!
-
 ## how to use
 
 1. build it from `build.bat` or grab the precompiled exe and dll here:
