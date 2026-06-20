@@ -4,7 +4,9 @@ simple steam launch wrapper for csgo legacy inventory.
 
 ## how to use
 
-1. build the exe from `main.cpp`.
+1. build it from `main.cpp` or grab the precompiled exe here:
+
+   https://github.com/quityy/cs-go-legacy-inventory-fix/raw/refs/heads/main/inventory_fix.exe
 
 2. put the exe somewhere easy to find, like:
 
